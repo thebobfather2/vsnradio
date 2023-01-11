@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Eluvio Test Page</title>
+  <title>VSN Radio</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet" type="text/css" />
@@ -27,12 +27,17 @@
 
     body {
       overflow-y: scroll;
+      color: rgb(0, 232, 42);
+      text-shadow: 4px 4px #000000;
+      text-align: center;
     }
 
     video {
-      width: 100%;
+      margin-top: 150px;
+      width: 70%;
       max-height: 100vh;
-      background: black;
+      background-image: url("./src/img/WarpMaze.jpg");
+      border-radius: 25px;
     }
 
     #error-message {
@@ -109,8 +114,10 @@
   </style>
 </head>
 
-<body>
-    <h1 style="font-family: 'Press Start 2P', cursive; margin-left: 50px;">VSN Radio</h1>
+<body style="background-image: url('./src/img/Wired.jpg');">
+    <h1 style="font-family: 'Press Start 2P', cursive; margin-top: -350px; ">VSN Radio</h1>
+    <h2 id="songTitle">Song Title</h2>
+    <button id="purchaseRights" style="color: black; margin-top: 20px;">Purchase Rights To This Track</button>
   <div id="error-message"></div>
   <div class="controls">
     <div id="bitrate"></div>
