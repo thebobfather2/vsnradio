@@ -382,13 +382,6 @@
       SetErrorMessage("");
 
       try {
-        const contentId = document.getElementById("content-id").value;
-
-        if(!contentId) { return; }
-
-        const objectId = contentId.startsWith("iq__") ? contentId : "";
-        const versionHash = contentId.startsWith("hq__") ? contentId : "";
-
         const client = await ElvClient.FromConfigurationUrl({
           configUrl: document.getElementById("config-url").value
         });
@@ -403,6 +396,30 @@
             token: client.utils.B64(JSON.stringify({qspace_id: await client.ContentSpaceId()}))
           });
         }
+
+        let playlist = await client.ContentObjectMetadata({
+          libraryId: "ilib3PBhfL7TEdhaHjnhLMwhAoiwnUp7",
+          objectId: "iq__2X6yb9XGgr1X6eGcNe5ssXY1AuxY",
+          versionHash: "hq__9ZDbokDR7e4HC4ajQSjzcFRamVxawVeT7SCq9eWxpP914oYbEio6inAU9zhFe75s9uvfgsZMSt",
+          "metadataSubtree": "public/asset_metadata/titles",
+          "resolveLinks": true, "resolveIgnoreErrors": true, "resolveIncludeSource": true,
+        });
+        window.console.log("playlist", playlist);
+
+        let songs = [];
+        for (let [idx, song] of Object.entries(playlist)) {
+          //window.console.log("song", song);
+          for (let slug of Object.keys(song)) {
+            window.console.log("title", song[slug]["display_title"]);
+            window.console.log("source", song[slug]["."]["source"]);
+            songs.push({ "title": song[slug]["display_title"], "hash": song[slug]["."]["source"] });
+          }
+        }
+        window.console.log("songs", songs);
+
+        const contentId = songs[1].hash;
+        const objectId = contentId.startsWith("iq__") ? contentId : "";
+        const versionHash = contentId.startsWith("hq__") ? contentId : "";
 
         let playoutOptions;
         if(PLAYER_TYPE === "bitmovin") {
