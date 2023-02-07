@@ -118,9 +118,7 @@
 </head>
 
 <body style="background-image: url('./src/img/Wired.jpg');">
-    <h1 style="font-family: 'Press Start 2P', cursive; margin-top: -350px; ">VSN Radio</h1>
-    <h2 id="songTitle">Song Title</h2>
-    <button id="purchaseRights" style="color: black; margin-top: 20px;">Purchase Rights To This Track</button>
+
   <div id="error-message"></div>
   <div class="controls">
     <div id="bitrate"></div>
@@ -152,7 +150,7 @@
         placeholder="Private Key">
       <input
         id="content-id"
-        value="hq__CLnKYNF459t7CL3nGXdNLmeLscqNRnhCqh7wmBXSfCdtti5EF3GuHKnm8zk9wKkGZ8jSrsK9Et"
+        value="hq__LqkmqNf1fKszJFzbh15GMPB1N7j9pMTrE11vuqvHhLeERdhr9espwz9fDshmaeCU2XENAfK4Yk"
       >
     </div>
 
@@ -400,7 +398,7 @@
         let playlist = await client.ContentObjectMetadata({
           libraryId: "ilib3PBhfL7TEdhaHjnhLMwhAoiwnUp7",
           objectId: "iq__2X6yb9XGgr1X6eGcNe5ssXY1AuxY",
-          versionHash: "hq__9ZDbokDR7e4HC4ajQSjzcFRamVxawVeT7SCq9eWxpP914oYbEio6inAU9zhFe75s9uvfgsZMSt",
+          versionHash: "hq__LqkmqNf1fKszJFzbh15GMPB1N7j9pMTrE11vuqvHhLeERdhr9espwz9fDshmaeCU2XENAfK4Yk",
           "metadataSubtree": "public/asset_metadata/titles",
           "resolveLinks": true, "resolveIgnoreErrors": true, "resolveIncludeSource": true,
         });
@@ -417,7 +415,7 @@
         }
         window.console.log("songs", songs);
 
-        const contentId = songs[1].hash;
+        const contentId = songs[15].hash;
         const objectId = contentId.startsWith("iq__") ? contentId : "";
         const versionHash = contentId.startsWith("hq__") ? contentId : "";
 
