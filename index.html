@@ -303,6 +303,14 @@
 
         // document.getElementById("bitrate").innerHTML = `${currentLevel.attrs.RESOLUTION} | ${currentLevel.bitrate / 1000 / 1000} Mbps`;
       });
+      player.on(Hls.Events.FRAG_CHANGED, async (event, data) => {
+        console.log("HLS event", event, data, data.frag.duration)
+        if (data.frag.duration < 2) {
+          setTimeout(() => {
+            Load();
+          }, data.frag.duration * 1000);
+        }
+      });
     };
 
     const LoadDash = (playoutOptions) => {
@@ -383,6 +391,7 @@
         const client = await ElvClient.FromConfigurationUrl({
           configUrl: document.getElementById("config-url").value
         });
+        window.client = client;
 
         const privateKey = document.getElementById("private-key").value;
         if(privateKey) {
@@ -415,7 +424,9 @@
         }
         window.console.log("songs", songs);
 
-        const contentId = songs[15].hash;
+        const selectedSong = songs[Math.floor(Math.random() * songs.length)];
+        window.console.log("selectedSong", selectedSong);
+        const contentId = selectedSong.hash;
         const objectId = contentId.startsWith("iq__") ? contentId : "";
         const versionHash = contentId.startsWith("hq__") ? contentId : "";
 
