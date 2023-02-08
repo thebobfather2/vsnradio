@@ -25,22 +25,36 @@
       visibility: visible;
     }
 
+    button {
+      position: relative;
+      size: 10vw;
+      margin-top: -200px;
+      margin-bottom: 100px;
+      background-color: rgb(0, 232, 42);
+      color: #000000;
+      padding: 20px;
+      font-size: 20px;
+    }
+
     body {
       overflow-y: scroll;
       color: rgb(0, 232, 42);
       text-shadow: 4px 4px #000000;
       text-align: center;
+      margin-top: -50px;
+
     }
 
     video {
       border-width: 10px !important;
       border-color: white;
       border: solid;
-      margin-top: 150px;
+      margin-top: 90px;
       width: 70%;
       max-height: 100vh;
       background-image: url("./src/img/WarpMaze.jpg");
       border-radius: 38px;
+      box-shadow: 20px 20px #00000050;
     }
 
     #error-message {
@@ -460,6 +474,82 @@
       }
     };
 
+    const playNextTrack = async () => {
+      SetErrorMessage("");
+
+      try {
+        const client = await ElvClient.FromConfigurationUrl({
+          configUrl: document.getElementById("config-url").value
+        });
+        window.client = client;
+
+        const privateKey = document.getElementById("private-key").value;
+        if(privateKey) {
+          const wallet = client.GenerateWallet();
+          const signer = wallet.AddAccount({privateKey});
+          client.SetSigner({signer});
+        } else {
+          await client.SetStaticToken({
+            token: client.utils.B64(JSON.stringify({qspace_id: await client.ContentSpaceId()}))
+          });
+        }
+
+        let playlist = await client.ContentObjectMetadata({
+          libraryId: "ilib3PBhfL7TEdhaHjnhLMwhAoiwnUp7",
+          objectId: "iq__2X6yb9XGgr1X6eGcNe5ssXY1AuxY",
+          versionHash: "hq__LqkmqNf1fKszJFzbh15GMPB1N7j9pMTrE11vuqvHhLeERdhr9espwz9fDshmaeCU2XENAfK4Yk",
+          "metadataSubtree": "public/asset_metadata/titles",
+          "resolveLinks": true, "resolveIgnoreErrors": true, "resolveIncludeSource": true,
+        });
+        window.console.log("playlist", playlist);
+
+        let songs = [];
+        for (let [idx, song] of Object.entries(playlist)) {
+          //window.console.log("song", song);
+          for (let slug of Object.keys(song)) {
+            window.console.log("title", song[slug]["display_title"]);
+            window.console.log("source", song[slug]["."]["source"]);
+            songs.push({ "title": song[slug]["display_title"], "hash": song[slug]["."]["source"] });
+          }
+        }
+        window.console.log("songs", songs);
+
+        const selectedSong = songs[Math.floor(Math.random() * songs.length)];
+        window.console.log("selectedSong", selectedSong);
+        const contentId = selectedSong.hash;
+        const objectId = contentId.startsWith("iq__") ? contentId : "";
+        const versionHash = contentId.startsWith("hq__") ? contentId : "";
+
+        let playoutOptions;
+        if(PLAYER_TYPE === "bitmovin") {
+          playoutOptions = await client.BitmovinPlayoutOptions({
+            objectId,
+            versionHash,
+            protocols: [PROTOCOL],
+            drms: [DRM]
+          });
+
+          LoadBitmovin(playoutOptions);
+        } else {
+          playoutOptions = await client.PlayoutOptions({
+            objectId,
+            versionHash,
+            protocols: [PROTOCOL],
+            drms: [DRM]
+          });
+
+          if(PROTOCOL === "hls") {
+            LoadHlsJs(playoutOptions);
+          } else {
+            LoadDash(playoutOptions);
+          }
+        }
+      } catch(error) {
+        SetErrorMessage(error.message ? error.message : error);
+        console.error(error);
+      }
+    };
+
     const SetOptions = (protocol, drm) => {
       PROTOCOL = protocol;
       DRM = drm || "";
@@ -505,10 +595,13 @@
     document.getElementById("load-dash").onclick = () => SetOptions("dash", "clear");
     document.getElementById("load-dash-wv").onclick = () => SetOptions("dash", "widevine");
 
-    Load();
+    // Load();
+
+    playNextTrack()
 
     UpdateButtons();
   </script>
+  <button onclick="window.location.href='https://live-stg-eluv-io.web.app/vsnet/0b97bcf0-5d53-4c20-aeea-4afbeb165be5';">Purchase</button>
 </body>
 
 </html>
