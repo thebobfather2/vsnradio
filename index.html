@@ -315,20 +315,6 @@
       player = new Hls(PlayerConfiguration());
       player.loadSource(playoutInfo.playoutUrl);
       player.attachMedia(playerElement);
-
-      player.on(Hls.Events.LEVEL_SWITCHED, () => {
-        const currentLevel = player.levels[player.currentLevel];
-
-        // document.getElementById("bitrate").innerHTML = `${currentLevel.attrs.RESOLUTION} | ${currentLevel.bitrate / 1000 / 1000} Mbps`;
-      });
-      player.on(Hls.Events.FRAG_CHANGED, async (event, data) => {
-        console.log("HLS event", event, data, data.frag.duration)
-        if (data.frag.duration < 2) {
-          setTimeout(() => {
-            Load();
-          }, data.frag.duration * 1000);
-        }
-      });
     };
 
     const LoadDash = (playoutOptions) => {
@@ -433,11 +419,11 @@
 
         let songs = [];
         for (let [idx, song] of Object.entries(playlist)) {
-          //window.console.log("song", song);
           for (let slug of Object.keys(song)) {
-            window.console.log("title", song[slug]["display_title"]);
-            window.console.log("source", song[slug]["."]["source"]);
-            songs.push({ "title": song[slug]["display_title"], "hash": song[slug]["."]["source"] });
+            const title = song[slug]["display_title"];
+            const hash = song[slug]["."]["source"];
+            //window.console.log("title", title, "hash", hash);
+            songs.push({ "title": title, "hash": hash });
           }
         }
         window.console.log("songs", songs);
@@ -472,6 +458,13 @@
             LoadDash(playoutOptions);
           }
         }
+
+        const ve = document.getElementById("video-element");
+        ve.onended = function() {
+          window.console.log("The clip has ended");
+          playNextTrack();
+        };
+
       } catch(error) {
         SetErrorMessage(error.message ? error.message : error);
         console.error(error);
@@ -509,11 +502,11 @@
 
         let songs = [];
         for (let [idx, song] of Object.entries(playlist)) {
-          //window.console.log("song", song);
           for (let slug of Object.keys(song)) {
-            window.console.log("title", song[slug]["display_title"]);
-            window.console.log("source", song[slug]["."]["source"]);
-            songs.push({ "title": song[slug]["display_title"], "hash": song[slug]["."]["source"] });
+            const title = song[slug]["display_title"];
+            const hash = song[slug]["."]["source"];
+            //window.console.log("title", title, "hash", hash);
+            songs.push({ "title": title, "hash": hash });
           }
         }
         window.console.log("songs", songs);
@@ -548,6 +541,13 @@
             LoadDash(playoutOptions);
           }
         }
+
+        const ve = document.getElementById("video-element");
+        ve.onended = function() {
+          window.console.log("The clip has ended");
+          playNextTrack();
+        };
+
       } catch(error) {
         SetErrorMessage(error.message ? error.message : error);
         console.error(error);
