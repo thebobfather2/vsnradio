@@ -139,9 +139,15 @@
     <!-- SINGLE LINK BUTTON -->
     <!-- <a href="https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC" class="purchaseButton" target="_blank"><img src="./src/img/purchase.png" alt="Purchase button"/></a> -->
 
-     <!-- NEW BUTTON -->
-     <a href="https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC" class="purchaseButton" target="_blank"><img src="./src/img/purchase.png" alt="Purchase button"/></a>
-</div>
+     <!-- ARRAY BUTTON -->
+     <!-- create the array in JS below -->
+     <a id="currentLink" href="#" class="purchaseButton" target="_blank"><img src="./src/img/purchase.png" alt="Purchase button"/></a>
+
+
+    <!-- API PULL URL -->
+    <!-- <a href="https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/"+currentSong.SKU class="purchaseButton" target="_blank"><img src="./src/img/purchase.png" alt="Purchase button"/></a> -->
+    </div>
+
 
 <img style="background-color: green;">
 
@@ -437,7 +443,6 @@
         window.console.log("songs", songs);
 
         const selectedSong = songs[Math.floor(Math.random() * songs.length)];
-        window.console.log("selectedSong", selectedSong);
         const contentId = selectedSong.hash;
         const objectId = contentId.startsWith("iq__") ? contentId : "";
         const versionHash = contentId.startsWith("hq__") ? contentId : "";
@@ -519,8 +524,130 @@
         }
         window.console.log("songs", songs);
 
+        var songsdata = [
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Breathe of Fresh",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__MTuMKd8qpPZGMZrM1CPmF4KRDjmy2ELSXcpAtc33ATgtf7nRKcQ6p2VkNCDoZaTL5hKz5x6bNM"
+    },
+    {
+        "title": "Angels Stadium",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__KintEcLxmPYTRDrhQuvds1yELdJCWE4umis1WzocE8if3KhNue66tARPxCSk9YMGro3BvrSXBL"
+    },
+    {
+        "title": "LAYAWAY",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__LMfBziXSxjGd22ssLft7hjRut3tfAh24y2DhjUHZZkzna94C1rwo9uSgL3QaJwSoKnvtnNQp3p"
+    },
+    {
+        "title": "How Wonderful",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__MYhWdXkbSxAh8e2qRmWBUXMfg5soErGzffDENhd65R3dz41hXqVTr42cE52tjgUvjtVdX6M4K9"
+    },
+    {
+        "title": "Birds in the Garden",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__7QBnDfFYPEaNLfZWwT6xvsPodjzT41Aam3aDdsV7AKLrLPW1D31oWUUV26e1dfv4kBdSXiDT3j"
+    },
+    {
+        "title": "Greens & Things",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__8GpYQ72mz6zJ42yB8Hnt4JuVzNLcfTCvaNJ4nPeq33igPT8YYg8s5Z898grEiVusDZ7XZ9eEwk"
+    },
+    {
+        "title": "Arithmetic",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BXqQ2kjoQFwqmeBCPsCP88krWnsNtsbo5RJiY7H3Kj6N13Xtz58beZKEsRHtGdfsPVvMV1S3Bi"
+    },
+    {
+        "title": "Locust",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__8BBwAyMuVLdKuAAtrcNWd14mA1t1xYxTUypa28W8dSRMiqgr6ktj1kNEQkpLjRBNCb86knFCoL"
+    },
+    {
+        "title": "Drone",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__7pXXbAY35V8wAuchxYLv5PEmT7hh4rm6yWF5xodTz7RegVqhDZpsKfqQVJztW3qeKDmpe6xjkc"
+    },
+    {
+        "title": "F_CK2020",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__7KwBr8o67aKcDPHtbenqHLWQff7kNdBHU9nLLuVgm75Mj1MheoYo2mXe3kQrCbyAEES7NjeyR5"
+    },
+];
+
         const selectedSong = songs[Math.floor(Math.random() * songs.length)];
         window.console.log("selectedSong", selectedSong);
+        const hash = selectedSong.hash;
+        window.console.log("hash", hash);
+        var targetVariable = selectedSong.hash;
+        window.console.log("taget variable:", targetVariable);
+
+        var matchUrl;
+        
+        for (var i = 0; i < songsdata.length; i++) {
+          if (songsdata[i].hash === targetVariable) {
+            matchUrl = songsdata[i].url;
+            break;
+          }
+        }
+        window.console.log("matchUrl:", matchUrl);
+        var myUrl = matchUrl;
+        var currentLink = document.getElementById("currentLink");
+
+        currentLink.href = myUrl;
+
         const contentId = selectedSong.hash;
         const objectId = contentId.startsWith("iq__") ? contentId : "";
         const versionHash = contentId.startsWith("hq__") ? contentId : "";
@@ -597,6 +724,131 @@
       UpdateButtons();
     };
 
+    // Array method
+    var songsdata = [
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+    {
+        "title": "Million Dollar Smile",
+        "url": "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/Gr1RJ76W34721tpr9n1TxC",
+        "hash": "hq__BSki1joYvZ5pxc4PAWr2zWxT8A681Vmx3xzTrihC66R5sZMJKzAzC2mA7Wnfc83sdg4r6XcKo7"
+    },
+];
+
+    // cant figure out how to use javascript to find the url that matches the variable "hash" in the array
+    const arrayUrl = songsdata[0].url
+    window.console.log("array url", arrayUrl);
+
+    
+    // create the sku variable
+    const sku = "selectedSong.sku" 
+    // need to swap "selectedSong.sku" with the data from the eluvio object that is the sku
+    window.console.log("sku", sku);
+
+    // create the eluvio URL
+    // NOTES: selectedSong will pull the track in the player but we now need to unpack the metadata to get the SKU. might need to make an id variable and assign the selectedSong.sku to it, then use that below instead.
+    function generateLink(sku) {
+    var url = "https://wallet.preview.contentfabric.io/?preview=iq__PoyQD1L385EWHguKYvGNUbpyXbP&mid=iq__PoyQD1L385EWHguKYvGNUbpyXbP&hgm=/#/marketplace/iq__PoyQD1L385EWHguKYvGNUbpyXbP/store/" + sku;
+    return url;
+    }
+
+    // create currentUrl variable which is the URL of the song in the player
+    const currentUrl =  generateLink();
+    window.console.log("selectedLink", currentUrl);
+
     document.getElementById("select-hls-dash").onclick = () => SetPlayer("hls-dash");
     document.getElementById("select-bitmovin").onclick = () => SetPlayer("bitmovin");
 
@@ -612,6 +864,10 @@
     playNextTrack()
 
     UpdateButtons();
+
+    generateLink();
+
+
   </script>
 
   <!-- Original Button -->
