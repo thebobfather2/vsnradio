@@ -434,6 +434,9 @@
                 allow="encrypted-media"
                 src="https://embed.v3.contentfabric.io//?net=main&p&ct=h&vid=` + versionHash + `&ath=" />
             `);
+          const width = window.innerWidth * 7/10;
+          document.getElementById("embed").width = width;
+          document.getElementById("embed").height = document.getElementById("embed").width * 9/16;
 
           // we want to do all the player construction work once, and then have playNextTrack not
           // create a new player, just set the source, as we do w/ the embed iframe above.
