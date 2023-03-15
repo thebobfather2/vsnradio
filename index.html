@@ -163,13 +163,8 @@
         value="https://main.net955305.contentfabric.io/config"
         placeholder="Config URL">
       <input
-        id="private-key"
-        value=""
-        placeholder="Private Key">
-      <input
         id="content-id"
-        value="hq__LqkmqNf1fKszJFzbh15GMPB1N7j9pMTrE11vuqvHhLeERdhr9espwz9fDshmaeCU2XENAfK4Yk"
-      >
+        value="hq__LqkmqNf1fKszJFzbh15GMPB1N7j9pMTrE11vuqvHhLeERdhr9espwz9fDshmaeCU2XENAfK4Yk">
     </div>
 
     <!-- hide config -->
@@ -315,6 +310,8 @@
       player = new Hls(PlayerConfiguration());
       player.loadSource(playoutInfo.playoutUrl);
       player.attachMedia(playerElement);
+
+
     };
 
     const LoadDash = (playoutOptions) => {
@@ -388,7 +385,9 @@
       );
     };
 
-    const Load = async () => {
+    const playNextTrack = async (isFirstLoad) => {
+      console.log("playNextTrack", isFirstLoad);
+
       SetErrorMessage("");
 
       try {
@@ -397,16 +396,9 @@
         });
         window.client = client;
 
-        const privateKey = document.getElementById("private-key").value;
-        if(privateKey) {
-          const wallet = client.GenerateWallet();
-          const signer = wallet.AddAccount({privateKey});
-          client.SetSigner({signer});
-        } else {
-          await client.SetStaticToken({
-            token: client.utils.B64(JSON.stringify({qspace_id: await client.ContentSpaceId()}))
-          });
-        }
+        await client.SetStaticToken({
+          token: client.utils.B64(JSON.stringify({qspace_id: await client.ContentSpaceId()}))
+        });
 
         let playlist = await client.ContentObjectMetadata({
           libraryId: "ilib3PBhfL7TEdhaHjnhLMwhAoiwnUp7",
@@ -418,7 +410,7 @@
         window.console.log("playlist", playlist);
 
         let songs = [];
-        for (let [idx, song] of Object.entries(playlist)) {
+        for (let [_, song] of Object.entries(playlist)) {
           for (let slug of Object.keys(song)) {
             const title = song[slug]["display_title"];
             const hash = song[slug]["."]["source"];
@@ -433,6 +425,28 @@
         const contentId = selectedSong.hash;
         const objectId = contentId.startsWith("iq__") ? contentId : "";
         const versionHash = contentId.startsWith("hq__") ? contentId : "";
+
+        if (isFirstLoad) {
+          document.getElementById("embed-player").insertAdjacentHTML('beforeend', `
+            <iframe id=embed width=320 height=240
+                scrolling="no" marginheight="0" marginwidth="0"
+                frameborder="0" type="text/html"
+                allow="encrypted-media"
+                src="https://embed.v3.contentfabric.io//?net=main&p&ct=h&vid=` + versionHash + `&ath=" />
+            `);
+
+          // we want to do all the player construction work once, and then have playNextTrack not
+          // create a new player, just set the source, as we do w/ the embed iframe above.
+          // This approach maintains volume bar changes, for example, instead of resetting it each time.
+
+          let ve = document.getElementById("video-element");
+          // just set the source
+          // ...
+
+        } else {
+          document.getElementById("embed").src = "https://embed.v3.contentfabric.io//?net=main&p&ct=h&vid=" + versionHash + "&ath=";
+          return;
+        }
 
         let playoutOptions;
         if(PLAYER_TYPE === "bitmovin") {
@@ -462,90 +476,7 @@
         const ve = document.getElementById("video-element");
         ve.onended = function() {
           window.console.log("The clip has ended");
-          playNextTrack();
-        };
-
-      } catch(error) {
-        SetErrorMessage(error.message ? error.message : error);
-        console.error(error);
-      }
-    };
-
-    const playNextTrack = async () => {
-      SetErrorMessage("");
-
-      try {
-        const client = await ElvClient.FromConfigurationUrl({
-          configUrl: document.getElementById("config-url").value
-        });
-        window.client = client;
-
-        const privateKey = document.getElementById("private-key").value;
-        if(privateKey) {
-          const wallet = client.GenerateWallet();
-          const signer = wallet.AddAccount({privateKey});
-          client.SetSigner({signer});
-        } else {
-          await client.SetStaticToken({
-            token: client.utils.B64(JSON.stringify({qspace_id: await client.ContentSpaceId()}))
-          });
-        }
-
-        let playlist = await client.ContentObjectMetadata({
-          libraryId: "ilib3PBhfL7TEdhaHjnhLMwhAoiwnUp7",
-          objectId: "iq__2X6yb9XGgr1X6eGcNe5ssXY1AuxY",
-          versionHash: "hq__LqkmqNf1fKszJFzbh15GMPB1N7j9pMTrE11vuqvHhLeERdhr9espwz9fDshmaeCU2XENAfK4Yk",
-          "metadataSubtree": "public/asset_metadata/titles",
-          "resolveLinks": true, "resolveIgnoreErrors": true, "resolveIncludeSource": true,
-        });
-        window.console.log("playlist", playlist);
-
-        let songs = [];
-        for (let [idx, song] of Object.entries(playlist)) {
-          for (let slug of Object.keys(song)) {
-            const title = song[slug]["display_title"];
-            const hash = song[slug]["."]["source"];
-            //window.console.log("title", title, "hash", hash);
-            songs.push({ "title": title, "hash": hash });
-          }
-        }
-        window.console.log("songs", songs);
-
-        const selectedSong = songs[Math.floor(Math.random() * songs.length)];
-        window.console.log("selectedSong", selectedSong);
-        const contentId = selectedSong.hash;
-        const objectId = contentId.startsWith("iq__") ? contentId : "";
-        const versionHash = contentId.startsWith("hq__") ? contentId : "";
-
-        let playoutOptions;
-        if(PLAYER_TYPE === "bitmovin") {
-          playoutOptions = await client.BitmovinPlayoutOptions({
-            objectId,
-            versionHash,
-            protocols: [PROTOCOL],
-            drms: [DRM]
-          });
-
-          LoadBitmovin(playoutOptions);
-        } else {
-          playoutOptions = await client.PlayoutOptions({
-            objectId,
-            versionHash,
-            protocols: [PROTOCOL],
-            drms: [DRM]
-          });
-
-          if(PROTOCOL === "hls") {
-            LoadHlsJs(playoutOptions);
-          } else {
-            LoadDash(playoutOptions);
-          }
-        }
-
-        const ve = document.getElementById("video-element");
-        ve.onended = function() {
-          window.console.log("The clip has ended");
-          playNextTrack();
+          playNextTrack(false);
         };
 
       } catch(error) {
@@ -599,13 +530,16 @@
     document.getElementById("load-dash").onclick = () => SetOptions("dash", "clear");
     document.getElementById("load-dash-wv").onclick = () => SetOptions("dash", "widevine");
 
-    // Load();
-
-    playNextTrack()
+    playNextTrack(true)
 
     UpdateButtons();
+
   </script>
+
+  <div id="embed-player" ></div>
+
   <button onclick="window.location.href='https://live-stg-eluv-io.web.app/vsnet/0b97bcf0-5d53-4c20-aeea-4afbeb165be5';">Purchase</button>
+
 </body>
 
 </html>
